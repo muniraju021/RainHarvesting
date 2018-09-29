@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B68D7F9C-9495-4B1B-A3CA-07D2679CA690}</ProjectGuid>
+    <ProjectGuid>{03A0F398-8991-41E2-A5F2-88B08B179600}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RainHarvest.UI</RootNamespace>
-    <AssemblyName>RainHarvest.UI</AssemblyName>
+    <RootNamespace>RainHarvestQuiz.UI</RootNamespace>
+    <AssemblyName>RainHarvestQuiz.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,12 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
-      <HintPath>ThirdPartryDll\Bunifu_UI_v1.5.3.dll</HintPath>
+      <HintPath>ThirdPartyDll\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,25 +49,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculateRHCost.cs">
+    <Compile Include="CacheManager.cs" />
+    <Compile Include="QuestionarieForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CalculateRHCost.Designer.cs">
-      <DependentUpon>CalculateRHCost.cs</DependentUpon>
+    <Compile Include="QuestionarieForm.Designer.cs">
+      <DependentUpon>QuestionarieForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="QuizMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="QuizMainForm.Designer.cs">
+      <DependentUpon>QuizMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CalculateRHCost.resx">
-      <DependentUpon>CalculateRHCost.cs</DependentUpon>
+    <Compile Include="ResultPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResultPage.Designer.cs">
+      <DependentUpon>ResultPage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="QuestionarieForm.resx">
+      <DependentUpon>QuestionarieForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="QuizMainForm.resx">
+      <DependentUpon>QuizMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,6 +85,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ResultPage.resx">
+      <DependentUpon>ResultPage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,27 +97,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ThirdPartyDll\univcd.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ThirdPartyDll\unvr67w0.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ThirdPartryDll\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RainHarvest.Services\RainHarvest.Services.csproj">
-      <Project>{67ee5154-73c9-414c-9a6c-d8380760cd28}</Project>
-      <Name>RainHarvest.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Calculate.png">
+    <Content Include="Images\answer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Exit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\Hyderabad.png">
+    <Content Include="Images\Correct.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Logo.ico">
@@ -118,22 +120,30 @@
     <Content Include="Images\Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\News Icon.png">
+    <Content Include="Images\PlayButton1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\rainfalldata.jpg">
+    <Content Include="Images\Q1 Side Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\rainfalldataNew.jpg">
+    <Content Include="Images\QuizImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\RainWater.png">
+    <Content Include="Images\SuccessImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\ReportsIcon.png">
+    <Content Include="Images\timer icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Wrong.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\WrongImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ThirdPartyDll\Bunifu_UI_v1.5.3.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
